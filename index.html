@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绿色校园 | Eco Campus</title>
+    <!-- 引入 TailwindCSS、字体、全局样式、首页样式、背景动画样式 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/bg-squares.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
+</head>
+
+<body class="font-sans">
+    <!-- 背景动态方块动画 -->
+    <ul class="bg-squares"></ul>
+    
+    <!-- 轮播图部分：3D立体旋转轮播 -->
+    <div style="display:flex; justify-content:center; align-items:center; min-height:calc(100vh - 120px);">
+        <div id="carousel-shell" class="carousel-3d-shell">
+            <div class="carousel-3d-content">
+                <div class="carousel-3d-item">
+                    <img src="images/slide1.jpg" alt="共建绿色校园">
+                    <div class="carousel-3d-caption">
+                        <h1>共建绿色校园</h1>
+                        <p>从点滴做起，让环境更美好</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-item">
+                    <img src="images/slide2.jpg" alt="参与环保行动">
+                    <div class="carousel-3d-caption">
+                        <h1>参与环保行动</h1>
+                        <p>每个人都能为环境贡献力量</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-item">
+                    <img src="images/slide3.jpg" alt="可持续发展">
+                    <div class="carousel-3d-caption">
+                        <h1>可持续发展</h1>
+                        <p>创造更美好的未来</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-item">
+                    <img src="images/slide4.jpg" alt="绿色校园活动">
+                    <div class="carousel-3d-caption">
+                        <h1>绿色校园活动</h1>
+                        <p>加入我们，共同参与环保行动</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-item">
+                    <img src="images/slide5.jpg" alt="环保未来">
+                    <div class="carousel-3d-caption">
+                        <h1>环保未来</h1>
+                        <p>携手共建可持续发展的未来</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-item">
+                    <img src="images/slide6.jpg" alt="绿色创新">
+                    <div class="carousel-3d-caption">
+                        <h1>绿色创新</h1>
+                        <p>用科技与创意点亮绿色生活</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 环保成果部分：动态计数器展示成就 -->
+    <section class="relative z-10 py-16" style="background: transparent;">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">我们的环保成果</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 单个环保成果卡片 -->
+                <div class="bg-white bg-opacity-80 rounded-xl shadow-lg p-8 text-center transform transition-all hover:scale-105">
+                    <div class="text-5xl text-green-500 mb-4">🌳</div>
+                    <h3 class="text-2xl font-semibold mb-2">植树造林</h3>
+                    <!-- 动态计数器 -->
+                    <p class="text-4xl font-bold text-green-600 counter" data-target="1250">0</p>
+                    <p class="text-gray-600">棵树木</p>
+                </div>
+                <div class="bg-white bg-opacity-80 rounded-xl shadow-lg p-8 text-center transform transition-all hover:scale-105">
+                    <div class="text-5xl text-blue-500 mb-4">♻️</div>
+                    <h3 class="text-2xl font-semibold mb-2">回收利用</h3>
+                    <p class="text-4xl font-bold text-blue-600 counter" data-target="3200">0</p>
+                    <p class="text-gray-600">公斤废品</p>
+                </div>
+                <div class="bg-white bg-opacity-80 rounded-xl shadow-lg p-8 text-center transform transition-all hover:scale-105">
+                    <div class="text-5xl text-yellow-500 mb-4">⚡</div>
+                    <h3 class="text-2xl font-semibold mb-2">节约能源</h3>
+                    <p class="text-4xl font-bold text-yellow-600 counter" data-target="8500">0</p>
+                    <p class="text-gray-600">千瓦时电力</p>
+                </div>
+            </div>
+            <!-- ECharts 图表容器，带左右切换按钮 -->
+            <div class="mt-12 max-w-4xl mx-auto">
+                <div class="glass-bg rounded-xl shadow-lg p-4">
+                    <div class="flex items-center justify-center mb-2">
+                        <button id="chart-prev" class="glass-bg mr-4 hover:bg-green-100 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold transition">&lt;</button>
+                        <h3 class="text-3xl font-semibold text-center text-gray-800 mb-0">
+                            <span id="chart-title">年度植树数量趋势</span>
+                        </h3>
+                        <button id="chart-next" class="glass-bg ml-4 hover:bg-green-100 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold transition">&gt;</button>
+                    </div>
+                    <div id="tree-chart" style="width:100%;height:340px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 环保小贴士部分：每日环保建议 -->
+    <section class="relative z-10 py-16" style="background: transparent;">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">今日环保小贴士</h2>
+            <div id="tip-container" class="max-w-3xl mx-auto bg-green-100 bg-opacity-80 rounded-xl p-8 shadow-md">
+                <!-- 动态插入环保小贴士 -->
+            </div>
+            <!-- 换一条按钮 随机切换下一条小贴士 -->
+            <div class="flex justify-center mt-4">
+                <button id="change-tip-btn" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full shadow transition">
+                    换一条
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 引入外部脚本：全局、轮播图、小贴士、计数器、背景动画 -->
+    <script src="js/shared.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/tips.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="js/bg-squares.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="js/echarts-tree.js"></script>
+</body>
+</html>

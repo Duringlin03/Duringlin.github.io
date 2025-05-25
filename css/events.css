@@ -1,0 +1,478 @@
+/* 近期活动卡片设置 */
+.events-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.event-card {
+    position: relative;
+    width: 100%;
+    min-height: 12em;
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 70%, rgba(34,197,94,0.12) 100%) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.event-card:hover {
+    box-shadow: 0 8px 32px rgba(16,185,129,0.18);
+    transform: translateY(-8px) scale(1.03);
+    background-color: #e6f9f3;
+}
+
+.event-card img {
+    width: 100%;
+    height: 12em;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+
+.event-card-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 70%, rgba(34,197,94,0.12) 100%) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 1.2em 1.2em 1em 1.2em;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(40px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 2;
+}
+
+.event-card:hover .event-card-info {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.event-card-info .info-meta {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 0.5em;
+}
+
+.event-card-info .info-type {
+    font-size: 0.95em;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 0.2em 0.7em;
+    background: #10b98122;
+    color: #059669;
+}
+
+.event-card-info .info-time {
+    font-size: 0.95em;
+    color: #6b7280;
+}
+
+.event-card-info .info-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #059669;
+    margin-bottom: 0.3em;
+}
+
+.event-card-info .info-desc {
+    font-size: 0.97em;
+    color: #374151;
+    margin-bottom: 0.7em;
+}
+
+.event-card-info .info-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5em;
+}
+
+.event-card-info .info-loc {
+    font-size: 0.95em;
+    color: #059669;
+    display: flex;
+    align-items: center;
+}
+
+.event-card-info .info-loc::before {
+    content: '📍';
+    margin-right: 0.2em;
+}
+
+.event-card-info .info-btn {
+    background: #10b981;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3em 1.1em;
+    font-size: 0.97em;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.event-card-info .info-btn:hover {
+    background: #059669;
+    transform: scale(1.08);
+}
+
+@media (max-width: 768px) {
+    .events-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 近期活动筛选按钮 */
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .filter-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* 活动卡片弹窗、预览卡片、内容区、类型标签、报名按钮等 */
+.event-card-popup {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 70%, rgba(34,197,94,0.12) 100%) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 2px 8px rgba(16,185,129,0.12);
+    border-radius: 8px;
+    padding: 0.7em 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(30px);
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 2;
+    backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.event-card:hover .event-card-popup {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+.event-card-popup .popup-loc {
+    font-size: 0.98em;
+    color: #059669;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+.event-card-popup .popup-loc::before {
+    content: '📍';
+    margin-right: 0.2em;
+}
+.event-card-popup .popup-btn {
+    background: #10b981;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3em 1em;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+.event-card-popup .popup-btn:hover {
+    background: #059669;
+    transform: scale(1.08);
+}
+
+/* 新活动卡片预览样式 */
+.event-card-preview {
+    position: relative;
+    width: 100%;
+    min-height: 18em;
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 70%, rgba(34,197,94,0.12) 100%);
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s, transform 0.3s;
+    cursor: pointer;
+    margin-bottom: 0.5em;
+}
+
+.event-card-preview:hover {
+    box-shadow: 0 8px 32px rgba(16,185,129,0.18);
+    transform: translateY(-8px) scale(1.03);
+    background-color: #e6f9f3;
+}
+
+.card-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 11em;
+    overflow: hidden;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.event-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s;
+}
+
+.event-card-preview:hover .event-img {
+    transform: scale(1.05);
+}
+
+/* 右上角弹出时间和地点（毛玻璃效果） */
+.event-popup {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    /* 毛玻璃背景 */
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 70%, rgba(34,197,94,0.12) 100%);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.12);
+    padding: 0.5em 1.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3em;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(40px);
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 2;
+    font-size: 0.98em;
+    font-weight: 500;
+    color: #059669;
+}
+.event-card-preview:hover .event-popup {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+.event-popup .popup-time {
+    color: #059669;
+    font-weight: 600;
+}
+.event-popup .popup-loc {
+    color: #374151;
+    font-size: 0.97em;
+}
+
+/* 卡片内容区 */
+.event-card-content {
+    padding: 1.1em 1.3em 0.7em 1.3em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    flex: 1 1 auto;
+    background: none;
+}
+
+.event-title {
+    font-size: 1.08em;
+    font-weight: bold;
+    color: #059669;
+    margin-bottom: 0.1em;
+    margin-top: 0.2em;
+}
+
+.event-desc {
+    font-size: 0.98em;
+    color: #374151;
+    margin-bottom: 0.2em;
+    flex: 1 1 auto;
+}
+
+/* 类型标签（头像区） */
+.event-type {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.98em;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 0.2em 0.9em;
+    margin-bottom: 0.2em;
+    margin-right: auto;
+    margin-top: -1.2em;
+    box-shadow: 2px 2px 6px rgba(0,0,0,.08);
+    background: #8e90999c;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+.type-lecture { background: #34d399cc; color: #065f46; }
+.type-volunteer { background: #60a5facc; color: #1e40af; }
+.type-workshop { background: #fde68acc; color: #92400e; }
+
+/* 报名按钮 */
+.event-signup-btn {
+    width: 85%;
+    margin: 1em auto 0.7em auto;
+    background: #10b981;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.75em 0;
+    font-size: 1.08em;
+    font-weight: 600;
+    transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(16,185,129,0.13);
+    display: block;
+    outline: none;
+    letter-spacing: 1px;
+}
+.event-signup-btn:hover,
+.event-card-preview:hover .event-signup-btn {
+    background: #059669;
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 12px 32px 0 rgba(16,185,129,0.18);
+}
+.event-signup-btn:active {
+    transform: scale(0.97);
+    filter: brightness(0.96);
+}
+.event-signup-btn.bg-gray-400,
+.event-signup-btn[disabled] {
+    background: #d1d5db !important;
+    color: #888 !important;
+    cursor: not-allowed;
+    box-shadow: 0 1px 4px rgba(156,163,175,0.10);
+    transform: none !important;
+}
+.event-signup-btn.bg-gray-400:hover,
+.event-signup-btn[disabled]:hover {
+    background: #d1d5db !important;
+    color: #888 !important;
+    box-shadow: 0 1px 4px rgba(156,163,175,0.10);
+    transform: none !important;
+}
+
+html {
+    overflow-y: scroll;
+}
+body {
+    width: 100%;
+    padding: 0 1rem;
+    overflow-x: hidden; 
+}
+
+.apple-nav {
+    
+    position: fixed;
+    top: 1.5rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 90vw !important;
+    max-width: 1100px !important;
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.12);
+    background: linear-gradient(90deg,rgba(255,255,255,0.7),rgba(34,197,94,0.12));
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    transition: box-shadow 0.3s, background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: none !important; 
+}
+
+/* 响应式布局调整 */
+@media (max-width: 768px) {
+    .event-card-preview {
+        min-height: 14em;
+    }
+    .card-img-wrap {
+        height: 8em;
+    }
+    .event-card-content {
+        padding: 0.8em 1em 0.5em 1em;
+    }
+    .event-signup-btn {
+        margin-bottom: 0.7em;
+    }
+}
+@media (max-width: 900px) {
+    .event-card-preview {
+        min-height: 12em;
+    }
+    .card-img-wrap {
+        height: 7em;
+    }
+    .event-card-content {
+        padding: 0.7em 0.7em 0.4em 0.7em;
+    }
+    .event-signup-btn {
+        margin-bottom: 0.5em;
+        font-size: 0.95em;
+    }
+    .event-title { font-size: 1em; }
+    .event-desc { font-size: 0.93em; }
+}
+@media (max-width: 600px) {
+    .event-card-preview {
+        min-height: 9em;
+        border-radius: 0.7rem;
+    }
+    .card-img-wrap {
+        height: 5em;
+        border-top-left-radius: 0.7rem;
+        border-top-right-radius: 0.7rem;
+    }
+    .event-card-content {
+        padding: 0.5em 0.5em 0.3em 0.5em;
+    }
+    .event-signup-btn {
+        margin-bottom: 0.3em;
+        font-size: 0.9em;
+    }
+    .event-title { font-size: 0.95em; }
+    .event-desc { font-size: 0.9em; }
+    .event-type { font-size: 0.9em; padding: 0.15em 0.6em; }
+    .event-popup { font-size: 0.9em; padding: 0.3em 0.7em; }
+    .event-popup .popup-time, .event-popup .popup-loc { font-size: 0.9em; }
+    .grid { gap: 0.7rem !important; }
+}
+
+/* 近期活动卡片悬浮阴影效果 */
+.shadow-lg:hover {
+    transition: none !important;
+    transform: none !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12) !important;
+}

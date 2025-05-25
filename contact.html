@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- 页面元信息 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 | Eco Campus</title>
+    <!-- 引入 TailwindCSS、字体、全局样式、联系页样式、背景动画样式 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/bg-squares.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <!-- 智能推荐主题脚本 -->
+    <script defer src="js/subject-suggest.js"></script>
+</head>
+
+<body class="font-sans">
+    <!-- 背景动态方块动画 -->
+    <ul class="bg-squares"></ul>
+    <!-- 页面主要内容 -->
+    <main class="relative z-10">
+        <!-- 联系表单部分：用户提交咨询/反馈 -->
+        <section class="py-16" style="background: transparent;">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto">
+                    <!-- 表单标题 -->
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">联系我们</h2>
+                    <div class="bg-white bg-opacity-80 rounded-xl shadow-2xl p-8"
+                        style="box-shadow: 0 8px 40px rgba(0,0,0,0.25);">
+                        <!-- 表单 -->
+                        <form id="contact-form" class="space-y-6">
+                            <!-- 姓名输入框 -->
+                            <div>
+                                <label for="name" class="block text-lg font-medium text-gray-700 mb-2">姓名</label>
+                                <input type="text" id="name" name="name"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                    placeholder="请输入您的姓名">
+                                <p id="name-error" class="mt-1 text-sm text-red-600 hidden">请输入您的姓名</p>
+                            </div>
+                            <!-- 邮箱输入框 -->
+                            <div>
+                                <label for="email" class="block text-lg font-medium text-gray-700 mb-2">邮箱</label>
+                                <input type="email" id="email" name="email"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                    placeholder="请输入您的邮箱">
+                                <p id="email-error" class="mt-1 text-sm text-red-600 hidden">请输入有效的邮箱地址</p>
+                            </div>
+                            <!-- 主题选择框 -->
+                            <div>
+                                <label for="subject" class="block text-lg font-medium text-gray-700 mb-2">主题</label>
+                                <select id="subject" name="subject" data-suggest
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                                    <option value="general">一般咨询</option>
+                                    <option value="volunteer">志愿者申请</option>
+                                    <option value="partnership">合作意向</option>
+                                    <option value="feedback">意见反馈</option>
+                                </select>
+                                <div id="subject-suggest-tip" class="text-green-600 text-sm mt-1 hidden"></div>
+                            </div>
+                            <!-- 留言内容输入框 -->
+                            <div>
+                                <label for="message" class="block text-lg font-medium text-gray-700 mb-2">留言内容</label>
+                                <textarea id="message" name="message" rows="5"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none"
+                                    placeholder="请输入您的留言"></textarea>
+                                <p id="message-error" class="mt-1 text-sm text-red-600 hidden">请输入留言内容</p>
+                            </div>
+                            <!-- 提交按钮 -->
+                            <button type="submit"
+                                class="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition duration-300 transform hover:scale-105">
+                                发送留言
+                            </button>
+                        </form>
+                        <!-- 表单提交成功提示 -->
+                        <div id="form-success" class="mt-6 hidden">
+                            <div class="bg-green-100 rounded-lg p-6 text-center">
+                                <p class="text-xl font-semibold text-green-800 mb-2">感谢您的留言！</p>
+                                <p class="text-gray-700">我们已收到您的信息，将在1-3个工作日内回复您。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 校园地图部分：展示校区位置和开放时间 -->
+        <section class="py-16" style="background: transparent;">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">校园地图</h2>
+                <div class="max-w-5xl mx-auto">
+                    <!-- 地图容器 -->
+                    <div class="bg-gray-100 bg-opacity-80 rounded-xl shadow-lg overflow-hidden">
+                        <div id="amap-container" style="width:100%;height:520px;min-height:320px;border-radius:1rem;"></div>
+                    </div>
+                    <!-- 校区信息 -->
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 长江路校区 -->
+                        <div class="bg-green-50 rounded-xl p-6">
+                            <h3 class="text-xl font-semibold text-green-800 mb-2">长江路校区</h3>
+                            <p class="text-gray-600">地址: 河南省商丘市睢阳大道中段236号</p>
+                            <p class="text-gray-600">开放时间: 周一至周五 8:00-20:00</p>
+                        </div>
+                        <!-- 虞城校区 -->
+                        <div class="bg-blue-50 rounded-xl p-6">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-2">虞城校区</h3>
+                            <p class="text-gray-600">地址: 河南省商丘市虞城县至诚八路16号</p>
+                            <p class="text-gray-600">开放时间: 周一至周五 9:00-18:00</p>
+                        </div>
+                        <!-- 环保中心 -->
+                        <div class="bg-yellow-50 rounded-xl p-6">
+                            <h3 class="text-xl font-semibold text-yellow-800 mb-2">环保中心</h3>
+                            <p class="text-gray-600">地址: 长江路校区东苑一楼</p>
+                            <p class="text-gray-600">电话: 123-456-7890</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 环保部联系方式部分：主要负责人联系方式 -->
+        <section class="py-16 bg-gradient-to-r bg-gray" style="background: transparent;">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">环保部联系方式</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- 联系人信息 -->
+                    <div class="bg-white bg-opacity-80 rounded-xl shadow-lg p-8 text-center transform transition-all hover:scale-105">
+                        <div
+                            class="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center text-3xl text-green-600 mb-4">
+                            👨‍💼</div>
+                        <h3 class="text-xl font-semibold mb-2">张三</h3>
+                        <p class="text-gray-600 mb-2">理事长</p>
+                        <p class="text-gray-600">zhangsan@ecocampus.org</p>
+                    </div>
+                    <div class="bg-white bg-opacity-80 rounded-xl shadow-lg p-8 text-center transform transition-all hover:scale-105">
+                        <div
+                            class="w-20 h-20 mx-auto rounded-full bg-blue-100 flex items-center justify-center text-3xl text-blue-600 mb-4">
+                            👩‍🔬</div>
+                        <h3 class="text-xl font-semibold mb-2">李四</h3>
+                        <p class="text-gray-600 mb-2">项目总监</p>
+                        <p class="text-gray-600">lisi@ecocampus.org</p>
+                    </div>
+                    <div class="bg-white bg-opacity-80 rounded-xl shadow-lg p-8 text-center transform transition-all hover:scale-105">
+                        <div
+                            class="w-20 h-20 mx-auto rounded-full bg-yellow-100 flex items-center justify-center text-3xl text-yellow-600 mb-4">
+                            👩‍💻</div>
+                        <h3 class="text-xl font-semibold mb-2">王五</h3>
+                        <p class="text-gray-600 mb-2">宣传主管</p>
+                        <p class="text-gray-600">wangwu@ecocampus.org</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- 引入外部脚本：全局、表单校验、地图放大、背景动画 -->
+    <script src="js/shared.js"></script>
+    <script src="js/form-validation.js"></script>
+    <script src="js/click-larger.js"></script>
+    <script src="js/bg-squares.js"></script>
+    <!-- 高德地图API -->
+    <script src="https://webapi.amap.com/maps?v=2.0&key=4d0596d10326b419ac8dd700b6b35ae4"></script>
+    <script src="js/amap-init.js"></script>
+</body>
+
+</html>

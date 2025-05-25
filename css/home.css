@@ -1,0 +1,106 @@
+/* 3D立体旋转轮播图样式 */
+.carousel-3d-shell {
+    position: relative;
+    width: 60vw;
+    height: 40vw;
+    max-width: 700px;
+    max-height: 420px;
+    min-width: 320px;
+    min-height: 180px;
+    margin: 0 auto;
+    perspective: 1200px;
+    z-index: 2;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carousel-3d-content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0; top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(.4,2,.6,1);
+}
+.carousel-3d-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background: #fff;
+}
+.carousel-3d-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.carousel-3d-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    background: linear-gradient(0deg,rgba(0,0,0,0.48) 60%,rgba(0,0,0,0.08) 100%);
+    color: #fff;
+    padding: 2.5vw 2vw 2vw 2vw;
+    text-align: center;
+    z-index: 2;
+}
+.carousel-3d-caption h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+    letter-spacing: 1px;
+}
+.carousel-3d-caption p {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.carousel-3d-item:nth-child(1) {
+    transform: rotateY(0deg) translateZ(45vw);
+}
+.carousel-3d-item:nth-child(2) {
+    transform: rotateY(60deg) translateZ(45vw);
+}
+.carousel-3d-item:nth-child(3) {
+    transform: rotateY(120deg) translateZ(45vw);
+}
+.carousel-3d-item:nth-child(4) {
+    transform: rotateY(180deg) translateZ(45vw);
+}
+.carousel-3d-item:nth-child(5) {
+    transform: rotateY(240deg) translateZ(45vw);
+}
+.carousel-3d-item:nth-child(6) {
+    transform: rotateY(300deg) translateZ(45vw);
+}
+
+@media (max-width: 900px) {
+    .carousel-3d-shell { width: 95vw; height: 55vw; max-width: 99vw; max-height: 320px; }
+    .carousel-3d-caption h1 { font-size: 1.3rem; }
+    .carousel-3d-caption p { font-size: 0.95rem; }
+}
+@media (max-width: 600px) {
+    .carousel-3d-shell { width: 99vw; height: 60vw; min-width: 180px; min-height: 100px; }
+    .carousel-3d-caption { padding: 1.2vw 1vw 1vw 1vw; }
+    .carousel-3d-caption h1 { font-size: 1rem; }
+    .carousel-3d-caption p { font-size: 0.8rem; }
+}
+
+.carousel-3d-caption,
+.carousel-3d-caption h1,
+.carousel-3d-caption p {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
